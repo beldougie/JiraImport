@@ -50,16 +50,16 @@ $relation_map=plugin_config_get('relation_map');
 
 $jira->set_charset("utf8");
 $query="SELECT ID,pname from priority";
-echo generate_map_table($jira,[NONE,LOW,NORMAL,HIGH,URGENT,IMMEDIATE],$query,"priority",$priority_map);
+echo generate_map_table($jira, array(NONE,LOW,NORMAL,HIGH,URGENT,IMMEDIATE),$query,"priority",$priority_map);
 
 $query="SELECT ID,pname from resolution";
-echo generate_map_table($jira,[OPEN,FIXED,REOPENED,UNABLE_TO_DUPLICATE,NOT_FIXABLE,DUPLICATE,NOT_A_BUG,SUSPENDED,WONT_FIX],$query,"resolution",$resolution_map);
+echo generate_map_table($jira,array(OPEN,FIXED,REOPENED,UNABLE_TO_DUPLICATE,NOT_FIXABLE,DUPLICATE,NOT_A_BUG,SUSPENDED,WONT_FIX),$query,"resolution",$resolution_map);
 
 $query="SELECT ID,pname from issuestatus";
-echo generate_map_table($jira,[NEW_,FEEDBACK,ACKNOWLEDGED,CONFIRMED,ASSIGNED,RESOLVED,CLOSED],$query,"status",$status_map);
+echo generate_map_table($jira,array(NEW_,FEEDBACK,ACKNOWLEDGED,CONFIRMED,ASSIGNED,RESOLVED,CLOSED),$query,"status",$status_map);
 
 $query="SELECT ID,LINKNAME FROM issuelinktype";
-echo generate_map_table($jira,[BUG_REL_NONE,BUG_REL_ANY,BUG_RELATED,BUG_DEPENDANT,BUG_BLOCKS,BUG_HAS_DUPLICATE],$query,"relation",$relation_map,
+echo generate_map_table($jira,array(BUG_REL_NONE,BUG_REL_ANY,BUG_RELATED,BUG_DEPENDANT,BUG_BLOCKS,BUG_HAS_DUPLICATE),$query,"relation",$relation_map,
 	function($default,$name) {
 		ob_start();
 		relationship_list_box($default,$name);
@@ -91,7 +91,7 @@ function generate_map_table($jira,$mantis_items,$query,$map_type,$status_map,$ma
 	$res->bind_result($ID,$pname);
 	$map_table='';
 	$mantis_options='';
-	if (!$map_function) 
+	if (!$map_function)
 		foreach ($mantis_items as $p) 
 			$mantis_options.="<option value='$p'>".get_enum_element( $map_type,$p)."</option>";						
 
